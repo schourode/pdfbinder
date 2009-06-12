@@ -1,5 +1,6 @@
 This directory contains a vector graphics version of the PDFBinder logo
-(SVG format), along with the original artwork used to compose it.
+(SVG format), along with a few bitmap versions and the original artwork
+used to compose the logo.
 
 All individual elements are released into the "public domain" by their
 authors. This includes the files mentioned below:
@@ -13,3 +14,4 @@ project. This includes the files mentioned below:
 
   pdfbinder.svg
   pdfbinder.png
+  pdfbinder.ico
