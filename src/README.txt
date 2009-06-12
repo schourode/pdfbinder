@@ -1,4 +1,4 @@
-﻿PDFBinder v0.1
+﻿PDFBinder v1.0
 ==============
 
 Contents:
@@ -46,9 +46,13 @@ reasonable amount of beer to the project.
 PDFBinder is released under the MIT/X11 license. Please see LICENSE.txt for
 the complete legal text.
 
-The project links to the iTextSharp library, which is released under LGPL.
-Please refer to the [iTextSharp website][3].
+All of the PDF magic is done using the iTextSharp library, which is released
+under both MPL and LGPL. Please refer to the [iTextSharp website][3].
+
+The small icons on the buttons in the user interface are published under the
+Creative Commons Attribution 3.0 License by [Mark James][4].
 
 [1]: http://code.google.com/p/pdfbinder/
 [2]: http://pdfbinder.googlecode.com/svn/trunk/
 [3]: http://itextsharp.sourceforge.net/
+[4]: http://www.famfamfam.com/
