@@ -108,7 +108,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "Version" = "8:3.5.30729"
+                "Version" = "8:2.0.50727"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=76617"
                 }
@@ -166,7 +166,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_A9D432D1BD184FBBBA449A695853B61D"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFilesFolder][ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -323,6 +323,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_61B9B99F94A24FFC963E10F7BA4DE28C"
+            {
+            "Name" = "8:PDFBinder"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_25297E5AFFCA4729843496065CE8331B"
+            "Folder" = "8:_D0FC1A5CC6C247E8BE1D6BDA432888AD"
+            "WorkingFolder" = "8:_A9D432D1BD184FBBBA449A695853B61D"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
