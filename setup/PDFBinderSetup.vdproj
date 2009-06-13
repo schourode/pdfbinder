@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_334B958DF4E2498E9F250950853E2FBC"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_8077DB1F3E87158B097886ED8E207F12"
         "OwnerKey" = "8:_25297E5AFFCA4729843496065CE8331B"
         "MsmSig" = "8:_UNDEFINED"
@@ -62,6 +68,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5.SP1"
+                    {
+                    "Name" = "8:.NET Framework 3.5 SP1"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5.SP1"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -86,6 +105,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5.SP1"
+                    {
+                    "Name" = "8:.NET Framework 3.5 SP1"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5.SP1"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
     }
@@ -93,6 +125,48 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_6B0B42935A85450D9D40B870A7E53323"
+            {
+            "Name" = "8:Primary output from PDFBinder (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_25297E5AFFCA4729843496065CE8331B"
+            "FileType" = "3:2"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_87365DC6_E584_4F69_B26B_32AD58BBAB0A"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_882124A54DE44EDF90A28F391334F28B"
+            {
+            "Name" = "8:Primary output from PDFBinder (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_25297E5AFFCA4729843496065CE8331B"
+            "FileType" = "3:2"
+            "InstallAction" = "3:3"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_8B53ED7C_A989_4C7A_B347_1DA9EB797436"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_F886B9520C2D4BB09DED217D1945D2F0"
+            {
+            "Name" = "8:Primary output from PDFBinder (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_25297E5AFFCA4729843496065CE8331B"
+            "FileType" = "3:2"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:/pdfbinder=\"[TARGETDIR]\""
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_784E3704_36B5_4C65_98BB_213FAF516287"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -116,6 +190,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_334B958DF4E2498E9F250950853E2FBC"
+            {
+            "SourcePath" = "8:setup-banner.jpg"
+            "TargetName" = "8:setup-banner.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_A9D432D1BD184FBBBA449A695853B61D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8077DB1F3E87158B097886ED8E207F12"
             {
             "AssemblyRegister" = "3:1"
@@ -204,7 +298,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:PDFBinder"
         "ProductCode" = "8:{8BA03AC2-579F-41CD-A250-740137D86F7A}"
-        "PackageCode" = "8:{F3CB9A22-F585-4DBE-A1AA-26B3ADD05E5C}"
+        "PackageCode" = "8:{668284E2-614B-4CF6-B10B-F742C6806245}"
         "UpgradeCode" = "8:{9B78857D-281F-4FA4-918F-AE20C1B6C342}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
@@ -329,12 +423,12 @@
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
+            "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
             "Target" = "8:_25297E5AFFCA4729843496065CE8331B"
             "Folder" = "8:_D0FC1A5CC6C247E8BE1D6BDA432888AD"
             "WorkingFolder" = "8:_A9D432D1BD184FBBBA449A695853B61D"
-            "Icon" = "8:"
+            "Icon" = "8:_25297E5AFFCA4729843496065CE8331B"
             "Feature" = "8:"
             }
         }
@@ -364,7 +458,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_334B958DF4E2498E9F250950853E2FBC"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "InstallAllUsersVisible"
@@ -399,7 +494,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_334B958DF4E2498E9F250950853E2FBC"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -421,7 +517,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_334B958DF4E2498E9F250950853E2FBC"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -432,8 +529,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:"
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -478,7 +575,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_334B958DF4E2498E9F250950853E2FBC"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -509,7 +607,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_334B958DF4E2498E9F250950853E2FBC"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -553,7 +652,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_334B958DF4E2498E9F250950853E2FBC"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "UpdateText"
@@ -603,7 +703,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_334B958DF4E2498E9F250950853E2FBC"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -625,7 +726,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_334B958DF4E2498E9F250950853E2FBC"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -647,7 +749,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_334B958DF4E2498E9F250950853E2FBC"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -658,8 +761,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:"
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -710,7 +813,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_334B958DF4E2498E9F250950853E2FBC"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -738,7 +842,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_25297E5AFFCA4729843496065CE8331B"
             {
-            "SourcePath" = "8:..\\src\\obj\\Debug\\PDFBinder.exe"
+            "SourcePath" = "8:..\\src\\obj\\Release\\PDFBinder.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A9D432D1BD184FBBBA449A695853B61D"
