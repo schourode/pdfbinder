@@ -27,8 +27,8 @@ Press the "Save output..." button when your list of documents seems fine.
 If PDFBinder was installed using the pre-built installer, an extra option
 should have been automatically added to your context menu (the menu that on
 Windows displays when right clicking a file) for all PDF files. Select any
-number of PDFs in a file browser and choose the "PDFBinder..." option to
-bring up the PDFBinder interface with those files already in the list.
+number of PDFs in a file browser and choose the "Add to PDFBinder..." option
+to bring up the PDFBinder interface with those files already in the list.
 
 2. Contributing to the project
 ------------------------------
