@@ -160,12 +160,12 @@
             "Object" = "8:_25297E5AFFCA4729843496065CE8331B"
             "FileType" = "3:2"
             "InstallAction" = "3:1"
-            "Arguments" = "8:/pdfbinder=\"[TARGETDIR]\""
+            "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
             "Identifier" = "8:_784E3704_36B5_4C65_98BB_213FAF516287"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
+            "CustomActionData" = "8:/pdfbinder=\"[TARGETDIR]\\\""
             }
         }
         "DefaultFeature"
@@ -279,6 +279,17 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_BEFA1965EE97440A81AE2EB0D742ECC6"
+                    {
+                    "Name" = "8:PDFBinder"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_5D68718D762A4C5EB3EEB583A68C6099"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
         }
@@ -298,7 +309,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:PDFBinder"
         "ProductCode" = "8:{8BA03AC2-579F-41CD-A250-740137D86F7A}"
-        "PackageCode" = "8:{668284E2-614B-4CF6-B10B-F742C6806245}"
+        "PackageCode" = "8:{201F1DB0-5623-478A-B19A-27E0BF7C9204}"
         "UpgradeCode" = "8:{9B78857D-281F-4FA4-918F-AE20C1B6C342}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
@@ -421,12 +432,26 @@
             {
             "Name" = "8:PDFBinder"
             "Arguments" = "8:"
-            "Description" = "8:"
+            "Description" = "8:Launch PDFBinder."
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:32512"
+            "IconIndex" = "3:101"
             "Transitive" = "11:FALSE"
             "Target" = "8:_25297E5AFFCA4729843496065CE8331B"
-            "Folder" = "8:_D0FC1A5CC6C247E8BE1D6BDA432888AD"
+            "Folder" = "8:_BEFA1965EE97440A81AE2EB0D742ECC6"
+            "WorkingFolder" = "8:_A9D432D1BD184FBBBA449A695853B61D"
+            "Icon" = "8:_25297E5AFFCA4729843496065CE8331B"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_CD696C55BEFC4D08B27ACCCB6B00C3F4"
+            {
+            "Name" = "8:Uninstall"
+            "Arguments" = "8:/u [ProductCode]"
+            "Description" = "8:Remove PDFBinder from this computer."
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:102"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_25297E5AFFCA4729843496065CE8331B"
+            "Folder" = "8:_BEFA1965EE97440A81AE2EB0D742ECC6"
             "WorkingFolder" = "8:_A9D432D1BD184FBBBA449A695853B61D"
             "Icon" = "8:_25297E5AFFCA4729843496065CE8331B"
             "Feature" = "8:"

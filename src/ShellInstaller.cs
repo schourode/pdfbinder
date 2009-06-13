@@ -2,6 +2,7 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Configuration.Install;
+using System.IO;
 
 using Microsoft.Win32;
 
@@ -32,17 +33,17 @@ namespace PDFBinder
 
         private void AddShellExtension()
         {
-            using (var shell = OpenPdfShellKey())
+            bool installed;
+            using (var shell = OpenPdfShellKey(out installed))
             {
-                if (shell != null)
+                if (shell != null && !installed)
                 {
                     using (var binder = shell.CreateSubKey(SHELL_LABEL))
                     {
                         using (var command = binder.CreateSubKey("command"))
                         {
-                            command.SetValue(null, string.Format("\"{0}\\{1}.exe\" \"%1\"",
-                                Context.Parameters["pdfbinder"],
-                                typeof(ShellInstaller).Assembly.GetName().Name));
+                            command.SetValue(null, string.Format("\"{0}.exe\" \"%1\"",
+                                Path.Combine(Context.Parameters["pdfbinder"], typeof(ShellInstaller).Assembly.GetName().Name)));
                         }
                     }
                 }
@@ -51,31 +52,36 @@ namespace PDFBinder
 
         private void RemoveShellExtension()
         {
-            using (var shell = OpenPdfShellKey())
+            bool installed;
+            using (var shell = OpenPdfShellKey(out installed))
             {
-                if (shell != null)
+                if (installed)
                 {
-                    bool installed;
-                    using (var binder = shell.OpenSubKey(SHELL_LABEL))
-                        installed = (binder != null);
-
-                    if (installed)
-                        shell.DeleteSubKeyTree(SHELL_LABEL);
+                    shell.DeleteSubKeyTree(SHELL_LABEL);
                 }
             }
         }
 
-        private RegistryKey OpenPdfShellKey()
+        private RegistryKey OpenPdfShellKey(out bool installed)
         {
+            installed = false;
+
             string pdfClientKey;
-            
             using (var pdf = Registry.ClassesRoot.OpenSubKey(".pdf", false))
                 pdfClientKey = pdf == null ? null : pdf.GetValue(null) as string;
 
             if (pdfClientKey == null)
                 return null;
 
-            return Registry.ClassesRoot.OpenSubKey(pdfClientKey + "\\shell", true);
+            var shell = Registry.ClassesRoot.OpenSubKey(pdfClientKey + "\\shell", true);
+
+            if (shell == null)
+                return null;
+
+            using (var binder = shell.OpenSubKey(SHELL_LABEL))
+                installed = (binder != null);
+
+            return shell;
         }
     }
 }

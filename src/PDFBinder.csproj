@@ -12,7 +12,9 @@
     <AssemblyName>PDFBinder</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ApplicationIcon>pdfbinder.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <Win32Resource>C:\malamute\oss\pdfbinder\src\application.res</Win32Resource>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -83,7 +85,7 @@
   <ItemGroup>
     <Content Include="CHANGES.txt" />
     <Content Include="LICENSE.txt" />
-    <None Include="pdfbinder.ico" />
+    <None Include="application.res" />
     <Content Include="README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
