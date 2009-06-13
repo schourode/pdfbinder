@@ -42,11 +42,13 @@
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Binder.cs" />
+    <Compile Include="IpcHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

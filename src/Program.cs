@@ -8,6 +8,8 @@ namespace PDFBinder
 {
     static class Program
     {
+        public static MainForm MainForm { get; private set; }
+
         [STAThread]
         static void Main(string[] args)
         {
@@ -21,15 +23,17 @@ namespace PDFBinder
             }
             else
             {
-                // Load application normally - display main form.
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainForm());
 
-                // Load file names from command line into list.
-                foreach (string file in args)
+                Program.MainForm = new MainForm();
+
+                ProcessLinker loader = new ProcessLinker();
+                loader.SendFileList(args);
+
+                if (loader.IsServer || args.Length == 0)
                 {
-                    // TODO Implement command line file loading.
+                    Application.Run(Program.MainForm);
                 }
             }
         }

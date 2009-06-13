@@ -16,7 +16,23 @@ namespace PDFBinder
             UpdateUI();
         }
 
-        private void UpdateUI()
+        public void AddInputFile(string file)
+        {
+            switch (Combiner.TestSourceFile(file))
+            {
+                case Combiner.SourceTestResult.Unreadable:
+                    MessageBox.Show(string.Format("File could not be opened as a PDF document:\n\n{0}", file), "Illegal file type", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case Combiner.SourceTestResult.Protected:
+                    MessageBox.Show(string.Format("PDF document does not allow copying:\n\n{0}", file), "Permission denied", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                    break;
+                case Combiner.SourceTestResult.Ok:
+                    inputListBox.Items.Add(file);
+                    break;
+            }
+        }
+
+        public void UpdateUI()
         {
             if (inputListBox.Items.Count < 2)
             {
@@ -38,22 +54,6 @@ namespace PDFBinder
                 removeButton.Enabled = true;
                 moveUpButton.Enabled = (inputListBox.SelectedIndex > 0);
                 moveDownButton.Enabled = (inputListBox.SelectedIndex < inputListBox.Items.Count - 1);
-            }
-        }
-
-        private void AddInputFile(string file)
-        {
-            switch (Combiner.TestSourceFile(file))
-            {
-                case Combiner.SourceTestResult.Unreadable:
-                    MessageBox.Show(string.Format("File could not be opened as a PDF document:\n\n{0}", file), "Illegal file type", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-                case Combiner.SourceTestResult.Protected:
-                    MessageBox.Show(string.Format("PDF document does not allow copying:\n\n{0}", file), "Permission denied", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                    break;
-                case Combiner.SourceTestResult.Ok:
-                    inputListBox.Items.Add(file);
-                    break;
             }
         }
 
