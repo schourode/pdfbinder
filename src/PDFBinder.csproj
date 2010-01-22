@@ -85,7 +85,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CHANGES.txt" />
+    <Content Include="CHANGELOG.txt" />
     <Content Include="LICENSE.txt" />
     <None Include="application.res" />
     <Content Include="README.txt" />
