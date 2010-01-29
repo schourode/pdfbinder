@@ -44,8 +44,11 @@ namespace PDFBinder
             PdfReader reader = new PdfReader(fileName);
             for (int page = 1; page <= reader.NumberOfPages; page++)
             {
-                document.NewPage();
                 PdfImportedPage inputPage = writer.GetImportedPage(reader, page);
+
+                document.SetPageSize(inputPage.BoundingBox);
+                document.NewPage();
+
                 writer.DirectContent.AddTemplate(inputPage, 0, 0);
             }
             reader.Close();
