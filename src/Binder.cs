@@ -26,46 +26,52 @@ namespace PDFBinder
 {
     class Combiner : IDisposable
     {
-        private MemoryStream memory;
-        private Document document;
-        private PdfWriter writer;
+        private readonly Document _document;
+        private readonly PdfWriter _writer;
 
-        public Combiner()
+        public Combiner(string outputFilePath)
         {
-            memory = new MemoryStream();
-            document = new Document();
-            writer = PdfWriter.GetInstance(document, memory);
-            writer.CloseStream = false;
-            document.Open();
+            var outputStream = File.Create(outputFilePath);
+
+            _document = new Document();
+            _writer = PdfWriter.GetInstance(_document, outputStream);
+            _document.Open();
         }
 
         public void AddFile(string fileName)
         {
-            PdfReader reader = new PdfReader(fileName);
-            for (int page = 1; page <= reader.NumberOfPages; page++)
+            var reader = new PdfReader(fileName);
+
+            for (var i = 1; i <= reader.NumberOfPages; i++)
             {
-                PdfImportedPage inputPage = writer.GetImportedPage(reader, page);
+                var size = reader.GetPageSizeWithRotation(i);
+                _document.SetPageSize(size);
+                _document.NewPage();
 
-                document.SetPageSize(inputPage.BoundingBox);
-                document.NewPage();
+                var page = _writer.GetImportedPage(reader, i);
+                var rotation = reader.GetPageRotation(i);
 
-                writer.DirectContent.AddTemplate(inputPage, 0, 0);
+                switch (rotation)
+                {
+                    case 90:
+                        _writer.DirectContent.AddTemplate(page, 0, -1, 1, 0, 0, reader.GetPageSizeWithRotation(i).Height);
+                        break;
+                    // TODO case 180
+                    case 270:
+                        _writer.DirectContent.AddTemplate(page, 0, 1, -1, 0, reader.GetPageSizeWithRotation(i).Width, 0);
+                        break;
+                    default:
+                        _writer.DirectContent.AddTemplate(page, 0, 0);
+                        break;
+                }
             }
+
             reader.Close();
-        }
-
-        public void SaveCombinedDocument(string outputFileName)
-        {
-            document.Close();
-            using (Stream stream = File.Create(outputFileName))
-            {
-                memory.WriteTo(stream);
-            }
         }
 
         public void Dispose()
         {
-            memory.Dispose();
+            _document.Close();
         }
 
         public static SourceTestResult TestSourceFile(string fileName)

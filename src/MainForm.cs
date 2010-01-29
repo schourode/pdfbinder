@@ -76,25 +76,25 @@ namespace PDFBinder
 
         private void combineButton_Click(object sender, EventArgs e)
         {
-            using (Combiner combiner = new Combiner())
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                progressBar.Visible = true;
-                this.Enabled = false;
-
-                for (int i = 0; i < inputListBox.Items.Count; i++)
+                using (var combiner = new Combiner(saveFileDialog.FileName))
                 {
-                    combiner.AddFile((string)inputListBox.Items[i]);
-                    progressBar.Value = (int) (((i + 1) / (double)inputListBox.Items.Count) * 100);
+                    progressBar.Visible = true;
+                    this.Enabled = false;
+
+                    for (int i = 0; i < inputListBox.Items.Count; i++)
+                    {
+                        combiner.AddFile((string)inputListBox.Items[i]);
+                        progressBar.Value = (int)(((i + 1) / (double)inputListBox.Items.Count) * 100);
+                    }
+
+
+                    this.Enabled = true;
+                    progressBar.Visible = false;
                 }
 
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    combiner.SaveCombinedDocument(saveFileDialog.FileName);
-                    System.Diagnostics.Process.Start(saveFileDialog.FileName);
-                }
-
-                this.Enabled = true;
-                progressBar.Visible = false;
+                System.Diagnostics.Process.Start(saveFileDialog.FileName);
             }
         }
 
