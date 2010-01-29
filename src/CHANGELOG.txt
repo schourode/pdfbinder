@@ -1,6 +1,11 @@
 ﻿PDFBinder changelog
 ===================
 
+Version 1.1
+-----------
+  * Original paper size(s) maintained when merging (issue #4)
+  * Page rotation is respected while merging (issue #5)
+
 Version 1.0
 -----------
   * First public release.

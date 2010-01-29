@@ -43,8 +43,8 @@ reasonable amount of beer to the project.
 
 3. Licensing
 ------------
-PDFBinder is released under the MIT/X11 license. Please see LICENSE.txt for
-the complete legal text.
+PDFBinder is released under the terms of the GNU General Public License.
+Please see LICENSE.txt for the complete legal text.
 
 All of the PDF magic is done using the iTextSharp library, which is released
 under both MPL and LGPL. Please refer to the [iTextSharp website][3].
