@@ -1,5 +1,5 @@
 /*
- * Copyright 2009, 2010 Joern Schou-Rode
+ * Copyright 2009-2011 Joern Schou-Rode
  * 
  * This file is part of PDFBinder.
  *

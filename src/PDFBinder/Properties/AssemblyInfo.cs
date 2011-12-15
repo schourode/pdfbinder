@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2009, 2010 Joern Schou-Rode
+ * Copyright 2009-2011 Joern Schou-Rode
  * 
  * This file is part of PDFBinder.
  *
@@ -23,9 +23,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("PDFBinder")]
 [assembly: AssemblyProduct("PDFBinder")]
 [assembly: AssemblyDescription("A simple tool to merge several PDF documents into one")]
-[assembly: AssemblyCopyright("Copyright 2009, 2010 Joern Schou-Rode")]
-[assembly: AssemblyCompany("Malamute.dk")]
+[assembly: AssemblyCopyright("Copyright 2009-2011 Joern Schou-Rode")]
+[assembly: AssemblyCompany("Malamute ApS")]
 
 [assembly: ComVisible(false)]
 
-[assembly: AssemblyVersion("1.1.*")]
+[assembly: AssemblyVersion("1.2.*")]
