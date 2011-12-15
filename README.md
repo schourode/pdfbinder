@@ -1,4 +1,4 @@
-﻿PDFBinder v1.0
+﻿PDFBinder v1.2
 ==============
 
 Contents:
@@ -11,12 +11,11 @@ Contents:
 PDFBinder can be installed on Microsoft Windows systems using a pretty
 installer, which can be downloaded from the [project website][1].
 
-In order to use PDFBinder on other platforms - or if the installer seems like
-a bad choice for other reasons - PDFBinder can be built installed from
-source. Grab the latest source package from the [website][1], or check out
-trunk from the [Subversion repository][2]. Use whatever C# compiler you have
-available to build the project, or use the provided project file for
-Microsoft Visual Studio 2008 project if avaiable on your box.
+In order to use PDFBinder on other platforms - or if the installer seems
+like a bad choice for other reasons - PDFBinder can be built installed from
+source. Grab the latest source package the [GitHub repository][2]. Use
+whatever C# compiler you have available to build the project, or use the
+provided project file for Microsoft Visual Studio 2010.
 
 Hopefully, the user interface of PDFBinder is pretty self-explanatory. You
 can add source PDF documents by using the "Add source documents..." button,
@@ -39,20 +38,20 @@ reporters are very welcome to attach patches to their reports.
 If you wish to encourage further development of PDFBinder by donating to the
 project, please get in contact with the project owner (e-mail address can be
 found on [website][1]), and we will find some way for you to transfer a
-reasonable amount of beer to the project.
+reasonable amount of money or beer to the project.
 
 3. Licensing
 ------------
 PDFBinder is released under the terms of the GNU General Public License.
 Please see LICENSE.txt for the complete legal text.
 
-All of the PDF magic is done using the iTextSharp library, which is released
-under both MPL and LGPL. Please refer to the [iTextSharp website][3].
+All of the PDF magic is done using the iTextSharp 4.1.6 library, released
+under both MPL and LGPL. Please refer to the [iTextSharp project site][3].
 
 The small icons on the buttons in the user interface are published under the
 Creative Commons Attribution 3.0 License by [Mark James][4].
 
 [1]: http://code.google.com/p/pdfbinder/
-[2]: http://pdfbinder.googlecode.com/svn/trunk/
+[2]: https://github.com/schourode/pdfbinder
 [3]: http://itextsharp.sourceforge.net/
 [4]: http://www.famfamfam.com/
