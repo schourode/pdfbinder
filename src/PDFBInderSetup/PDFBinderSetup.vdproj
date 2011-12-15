@@ -27,8 +27,26 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_8077DB1F3E87158B097886ED8E207F12"
+        "MsmKey" = "8:_7A7D4121338B9A976525C35D744FC34C"
         "OwnerKey" = "8:_25297E5AFFCA4729843496065CE8331B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_830F5153980D43C59906B09D0D07B2F9"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_918E5992D7F148B998840F97B733457D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FDF107C20A4A48C6AFC1DAC0DD1D91CA"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -40,7 +58,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8077DB1F3E87158B097886ED8E207F12"
+        "OwnerKey" = "8:_7A7D4121338B9A976525C35D744FC34C"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -182,7 +200,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "Version" = "8:2.0.50727"
+                "FrameworkVersion" = "8:2.0.50727"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=76617"
                 }
@@ -210,14 +228,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8077DB1F3E87158B097886ED8E207F12"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7A7D4121338B9A976525C35D744FC34C"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:itextsharp, Version=4.1.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca"
                 "ScatterAssemblies"
                 {
-                    "_8077DB1F3E87158B097886ED8E207F12"
+                    "_7A7D4121338B9A976525C35D744FC34C"
                     {
                     "Name" = "8:itextsharp.dll"
                     "Attributes" = "3:512"
@@ -239,6 +257,66 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_830F5153980D43C59906B09D0D07B2F9"
+            {
+            "SourcePath" = "8:..\\..\\LICENSE.txt"
+            "TargetName" = "8:LICENSE.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_A9D432D1BD184FBBBA449A695853B61D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_918E5992D7F148B998840F97B733457D"
+            {
+            "SourcePath" = "8:..\\..\\README.txt"
+            "TargetName" = "8:README.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_A9D432D1BD184FBBBA449A695853B61D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FDF107C20A4A48C6AFC1DAC0DD1D91CA"
+            {
+            "SourcePath" = "8:..\\..\\CHANGELOG.txt"
+            "TargetName" = "8:CHANGELOG.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_A9D432D1BD184FBBBA449A695853B61D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
@@ -309,8 +387,9 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:PDFBinder"
         "ProductCode" = "8:{8BA03AC2-579F-41CD-A250-740137D86F7A}"
-        "PackageCode" = "8:{201F1DB0-5623-478A-B19A-27E0BF7C9204}"
+        "PackageCode" = "8:{C2BDFFB1-1BF4-4BE1-9DDC-D22E8E551D7E}"
         "UpgradeCode" = "8:{9B78857D-281F-4FA4-918F-AE20C1B6C342}"
+        "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
@@ -867,7 +946,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_25297E5AFFCA4729843496065CE8331B"
             {
-            "SourcePath" = "8:..\\src\\obj\\Release\\PDFBinder.exe"
+            "SourcePath" = "8:..\\PDFBinder\\obj\\Debug\\PDFBinder.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A9D432D1BD184FBBBA449A695853B61D"

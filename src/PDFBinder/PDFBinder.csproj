@@ -89,10 +89,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CHANGELOG.txt" />
-    <Content Include="LICENSE.txt" />
     <None Include="application.res" />
-    <Content Include="README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
