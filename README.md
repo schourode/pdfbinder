@@ -2,12 +2,14 @@
 ==============
 
 Contents:
+
   1. Installation and usage
   2. Contributing to the project
   3. Licensing
 
-1. Installation and usage
--------------------------
+Installation and usage
+----------------------
+
 PDFBinder can be installed on Microsoft Windows systems using a pretty
 installer, which can be downloaded from the [project website][1].
 
@@ -29,8 +31,9 @@ Windows displays when right clicking a file) for all PDF files. Select any
 number of PDFs in a file browser and choose the "Add to PDFBinder..." option
 to bring up the PDFBinder interface with those files already in the list.
 
-2. Contributing to the project
-------------------------------
+Contributing to the project
+---------------------------
+
 Any kind of contibutions to the project are very welcome. Issues should be
 reported directly in the issue tracker on the [project website][1], and
 reporters are very welcome to attach patches to their reports.
@@ -40,8 +43,9 @@ project, please get in contact with the project owner (e-mail address can be
 found on [website][1]), and we will find some way for you to transfer a
 reasonable amount of money or beer to the project.
 
-3. Licensing
-------------
+Licensing
+---------
+
 PDFBinder is released under the terms of the GNU General Public License.
 Please see LICENSE.txt for the complete legal text.
 
