@@ -18,7 +18,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
@@ -47,8 +46,12 @@ namespace PDFBinder
 
                 Program.MainForm = new MainForm();
 
-                ProcessLinker loader = new ProcessLinker();
-                loader.SendFileList(args);
+                var fileNames = new string[args.Length];
+                Array.Copy(args, fileNames, args.Length);
+                Array.Sort(fileNames);
+
+                var loader = new ProcessLinker();
+                loader.SendFileList(fileNames);
 
                 if (loader.IsServer || args.Length == 0)
                 {
