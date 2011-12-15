@@ -27,14 +27,14 @@ namespace PDFBinder
     class Combiner : IDisposable
     {
         private readonly Document _document;
-        private readonly PdfWriter _writer;
+        private readonly PdfCopy _pdfCopy;
 
         public Combiner(string outputFilePath)
         {
             var outputStream = File.Create(outputFilePath);
 
             _document = new Document();
-            _writer = PdfWriter.GetInstance(_document, outputStream);
+            _pdfCopy = new PdfCopy(_document, outputStream);
             _document.Open();
         }
 
@@ -48,22 +48,8 @@ namespace PDFBinder
                 _document.SetPageSize(size);
                 _document.NewPage();
 
-                var page = _writer.GetImportedPage(reader, i);
-                var rotation = reader.GetPageRotation(i);
-
-                switch (rotation)
-                {
-                    case 90:
-                        _writer.DirectContent.AddTemplate(page, 0, -1, 1, 0, 0, reader.GetPageSizeWithRotation(i).Height);
-                        break;
-                    // TODO case 180
-                    case 270:
-                        _writer.DirectContent.AddTemplate(page, 0, 1, -1, 0, reader.GetPageSizeWithRotation(i).Width, 0);
-                        break;
-                    default:
-                        _writer.DirectContent.AddTemplate(page, 0, 0);
-                        break;
-                }
+                var page = _pdfCopy.GetImportedPage(reader, i);
+                _pdfCopy.AddPage(page);
             }
 
             reader.Close();
