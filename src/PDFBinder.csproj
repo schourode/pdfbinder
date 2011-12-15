@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>
     </ApplicationIcon>
-    <Win32Resource>C:\malamute\oss\pdfbinder\src\application.res</Win32Resource>
+    <Win32Resource>application.res</Win32Resource>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
