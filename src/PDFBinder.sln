@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFBinder", "PDFBinder.csproj", "{C4013FBF-4357-4580-9E6F-8EF23D5B04E4}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PDFBinderSetup", "..\setup\PDFBinderSetup.vdproj", "{D3AE3A9A-5943-4C92-8241-1EA35FBF7F63}"
