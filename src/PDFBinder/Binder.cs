@@ -80,7 +80,7 @@ namespace PDFBinder
             {
                 PdfReader reader = new PdfReader(fileName);
                 bool ok = !reader.IsEncrypted() ||
-                    (reader.Permissions & PdfWriter.ALLOW_COPY) == PdfWriter.ALLOW_COPY;
+                    (reader.Permissions & PdfWriter.AllowAssembly) == PdfWriter.AllowAssembly;
                 reader.Close();
 
                 return ok ? SourceTestResult.Ok : SourceTestResult.Protected;
