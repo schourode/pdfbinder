@@ -64,9 +64,10 @@ namespace PDFBinder
 
         private void inputListBox_DragDrop(object sender, DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            var fileNames = (string[]) e.Data.GetData(DataFormats.FileDrop);
+            Array.Sort(fileNames);
 
-            foreach (string file in files)
+            foreach (var file in fileNames)
             {
                 AddInputFile(file);
             }
