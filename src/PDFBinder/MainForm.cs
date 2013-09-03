@@ -15,20 +15,54 @@ namespace PDFBinder
             InitializeComponent();
             UpdateUI();
         }
+        
+        public static byte[] StrToByteArray(string str)
+        {
+            System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+            return encoding.GetBytes(str);
+        }
+
+        private Dictionary<String,Byte[]> passwords = new Dictionary<string,byte[]>();
+
+        private byte[] currentPassword = null;
 
         public void AddInputFile(string file)
         {
-            switch (Combiner.TestSourceFile(file))
-            {
-                case Combiner.SourceTestResult.Unreadable:
-                    MessageBox.Show(string.Format("File could not be opened as a PDF document:\n\n{0}", file), "Illegal file type", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-                case Combiner.SourceTestResult.Protected:
-                    MessageBox.Show(string.Format("PDF document does not allow copying:\n\n{0}", file), "Permission denied", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                    break;
-                case Combiner.SourceTestResult.Ok:
-                    inputListBox.Items.Add(file);
-                    break;
+            Boolean tryAgain = true;
+            Boolean newPassword = false;
+            while (tryAgain || newPassword) {
+                newPassword = false;
+                switch (Combiner.TestSourceFile(file, currentPassword))
+                {
+                    case Combiner.SourceTestResult.Unreadable:
+                        MessageBox.Show(string.Format("File could not be opened as a PDF document:\n\n{0}", file), "Illegal file type", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case Combiner.SourceTestResult.Protected:
+                        MessageBox.Show(string.Format("PDF document does not allow copying:\n\n{0}", file), "Permission denied", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                        break;
+                    case Combiner.SourceTestResult.Ok:
+                        inputListBox.Items.Add(file);
+                        passwords[file] = currentPassword;
+                        break;
+                    case Combiner.SourceTestResult.PasswordRequired:
+                        if (tryAgain)
+                        {
+                            PasswordEntry pe = new PasswordEntry();
+                            pe.Prompt = "Password required for file: \n" + file;
+                            DialogResult dr = pe.ShowDialog(this);
+                    
+                            if (dr == System.Windows.Forms.DialogResult.OK) {
+                                currentPassword = StrToByteArray(pe.Password);
+                                newPassword = true;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show(string.Format("Password supplied didn't open PDF document:\n\n{0}", file), "Bad password", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                        }
+                        break;
+                }
+                tryAgain = false;
             }
         }
 
@@ -86,7 +120,13 @@ namespace PDFBinder
 
                     for (int i = 0; i < inputListBox.Items.Count; i++)
                     {
-                        combiner.AddFile((string)inputListBox.Items[i]);
+                        byte[] pw ;
+                        bool found_pw = passwords.TryGetValue((string)inputListBox.Items[i], out pw);
+                        if (found_pw) {
+                            combiner.AddFile((string)inputListBox.Items[i], pw);
+                        } else {
+                            combiner.AddFile((string)inputListBox.Items[i]);
+                       }
                         progressBar.Value = (int)(((i + 1) / (double)inputListBox.Items.Count) * 100);
                     }
 

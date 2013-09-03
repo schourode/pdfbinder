@@ -55,31 +55,79 @@ namespace PDFBinder
             reader.Close();
         }
 
+        public void AddFile(string fileName, byte[] password)
+        {
+            try
+            {
+                var reader = new PdfReader(fileName, password);
+                for (var i = 1; i <= reader.NumberOfPages; i++)
+                {
+                    var size = reader.GetPageSizeWithRotation(i);
+                    _document.SetPageSize(size);
+                    _document.NewPage();
+
+                    var page = _pdfCopy.GetImportedPage(reader, i);
+                    _pdfCopy.AddPage(page);
+                }
+
+                reader.Close();
+            }
+            catch (BadPasswordException bpe) 
+            {
+                AddFile(fileName);
+                return;
+            }
+        }
+
         public void Dispose()
         {
             _document.Close();
         }
 
-        public static SourceTestResult TestSourceFile(string fileName)
+        public static SourceTestResult TestSourceFile(string fileName, byte[] password)
         {
-            try
+            bool tryAgain = false;
+            while (true)
             {
-                PdfReader reader = new PdfReader(fileName);
-                bool ok = !reader.IsEncrypted() ||
-                    (reader.Permissions & PdfWriter.AllowAssembly) == PdfWriter.AllowAssembly;
-                reader.Close();
+                try
+                {
+                    PdfReader reader;
+                    if (!tryAgain) 
+                    { 
+                        reader = new PdfReader(fileName);
+                    }
+                    else
+                    {
+                        reader = new PdfReader(fileName, password);
+                    }
 
-                return ok ? SourceTestResult.Ok : SourceTestResult.Protected;
-            }
-            catch
-            {
-                return SourceTestResult.Unreadable;
+                    bool ok = !reader.IsEncrypted() || reader.IsOpenedWithFullPermissions || 
+                        (reader.Permissions & PdfWriter.AllowAssembly) == PdfWriter.AllowAssembly;
+                    reader.Close();
+
+                    return ok ? SourceTestResult.Ok : SourceTestResult.Protected;
+                }
+                catch (iTextSharp.text.pdf.BadPasswordException bpe)
+                {
+                    if (tryAgain)
+                    {
+                        return SourceTestResult.PasswordRequired;
+                    }
+                    else
+                    {
+                        tryAgain = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    return SourceTestResult.Unreadable ;
+                }
             }
         }
 
         public enum SourceTestResult
         {
-            Ok, Unreadable, Protected
+            Ok, Unreadable, Protected, PasswordRequired
         }
     }
 }
