@@ -65,6 +65,12 @@
     <Compile Include="PasswordEntry.Designer.cs">
       <DependentUpon>PasswordEntry.cs</DependentUpon>
     </Compile>
+    <Compile Include="PdfItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PdfItem.Designer.cs">
+      <DependentUpon>PdfItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
@@ -73,6 +79,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PasswordEntry.resx">
       <DependentUpon>PasswordEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PdfItem.resx">
+      <DependentUpon>PdfItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -85,6 +94,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
+    <None Include="PDFBinder_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

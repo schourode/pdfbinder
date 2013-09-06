@@ -19,11 +19,116 @@
 
 using System;
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
 namespace PDFBinder
 {
+
+
+    public class PageNumberGeneratorGenerator : IEnumerable<int>
+    {
+        public String pagesIntent;
+        public PageNumberGeneratorGenerator(String pagesIntent)
+        {
+            this.pagesIntent = pagesIntent;
+        }
+        public IEnumerator<int> GetEnumerator() {
+            return new PageNumberGenerator(this.pagesIntent);
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return new PageNumberGenerator(this.pagesIntent);
+        }
+    }
+
+    public class PageNumberGenerator : IEnumerator<int>
+    {
+        public class PageRange 
+        {
+            public int begin;
+            public int end;
+        }
+        public bool selectAll = true;
+        public List<PageRange> ranges = new List<PageRange>();
+        private List<PageRange>.Enumerator placeKeeper;
+        private int lastPageGenerated = 0;
+        public PageNumberGenerator(String pagesIntent)
+        {
+            List<long> output = new List<long>();
+            string[] regions = pagesIntent.Split(',');
+
+            foreach (string r in regions)
+	        {
+                if (r.Length == 0)
+                {
+                    continue;
+                }
+		        string[] endpointsStrings = r.Split('-');
+                if (endpointsStrings.Length > 2) {
+                    throw new ArgumentException();
+                }
+                PageRange pr = new PageRange();
+                bool ok  = int.TryParse(endpointsStrings[0], out pr.begin);
+                if (endpointsStrings.Length == 2 ) {
+                    ok  &= int.TryParse(endpointsStrings[1], out pr.end);
+                }
+                if (!ok) {
+                    throw new ArgumentException("Region couldn't be parsed " + r);
+                }
+                ranges.Add(pr);
+                selectAll = false;
+	        }
+            placeKeeper = ranges.GetEnumerator();
+        }
+        public void Reset()
+        {
+            placeKeeper = ranges.GetEnumerator();
+        }
+
+        void IDisposable.Dispose()
+        {
+            ranges = null;
+            placeKeeper.Dispose();
+        }
+        public int Current
+        {
+            get { return lastPageGenerated; }
+        }
+        
+        object IEnumerator.Current
+        {
+            get { return Current;  }
+        }
+
+        public bool MoveNext()
+        {
+            if (selectAll)
+            {
+                lastPageGenerated += 1;
+                return true;
+            }
+            int nextPage = lastPageGenerated + 1;
+            if (placeKeeper.Current == null || nextPage > placeKeeper.Current.end)
+            {
+                if (placeKeeper.MoveNext())
+                {
+                    nextPage = placeKeeper.Current.begin;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            lastPageGenerated = nextPage;
+            return true;
+        }
+    }
+
+
     class Combiner : IDisposable
     {
         private readonly Document _document;
@@ -55,21 +160,13 @@ namespace PDFBinder
             reader.Close();
         }
 
-        public void AddFile(string fileName, byte[] password)
+        public void AddFile(string fileName, byte[] password, String pages)
         {
             try
             {
                 var reader = new PdfReader(fileName, password);
-                for (var i = 1; i <= reader.NumberOfPages; i++)
-                {
-                    var size = reader.GetPageSizeWithRotation(i);
-                    _document.SetPageSize(size);
-                    _document.NewPage();
-
-                    var page = _pdfCopy.GetImportedPage(reader, i);
-                    _pdfCopy.AddPage(page);
-                }
-
+                PageNumberGeneratorGenerator png = new PageNumberGeneratorGenerator(pages);
+                AddPages(reader, png);
                 reader.Close();
             }
             catch (BadPasswordException bpe) 
@@ -79,6 +176,40 @@ namespace PDFBinder
             }
         }
 
+        private void AddPage(PdfReader reader, int p) 
+        {
+            var size = reader.GetPageSizeWithRotation(p);
+            _document.SetPageSize(size);
+            _document.NewPage();
+            var page = _pdfCopy.GetImportedPage(reader, p);
+            if (page != null)
+            {
+                _pdfCopy.AddPage(page);
+            } 
+            else
+            {
+                throw new PdfException("Null page returned: " + p );
+            }
+        }
+
+        private void AddPages(PdfReader reader, PageNumberGeneratorGenerator png)
+        {
+            try
+            {
+                foreach (int p in png)
+                {
+                    if (p > reader.NumberOfPages)
+                    {
+                        return;
+                    }
+                    AddPage(reader, p);
+                }
+            } catch (Exception pdfe) {
+                System.Diagnostics.Debug.Write(pdfe);
+            }
+        }
+
+       
         public void Dispose()
         {
             _document.Close();
