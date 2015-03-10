@@ -27,7 +27,7 @@ namespace PDFBinder
         private String fileName;
         public String FileName { 
             get { return fileName;}
-            set { fileName = value; this.FileNameLabel.Text = fileName; this.toolTip1.SetToolTip(this.FileNameLabel, fileName) ;  } 
+            set { fileName = value; this.FileNameLabel.Text = fileName; this.toolTip1.SetToolTip(this.FileNameLabel, fileName); } 
         }
 
         private String pageDescriptor;
@@ -46,11 +46,13 @@ namespace PDFBinder
                 if (this.selected)
                 {
                     this.BackColor = SystemColors.Highlight;
+                    this.ForeColor = SystemColors.HighlightText;
                     BinderParentForm.selectedItems.Add(this);
                 }
                 else
                 {
                     this.BackColor = SystemColors.Control;
+                    this.ForeColor = SystemColors.ControlText;
                     if (BinderParentForm.selectedItems.Contains(this))
                     {
                         BinderParentForm.selectedItems.Remove(this);
@@ -95,7 +97,5 @@ namespace PDFBinder
         {
             PageDescriptor = PageSelection_textBox.Text;
         }
-
-
     }
 }

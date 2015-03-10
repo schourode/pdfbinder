@@ -36,11 +36,18 @@ namespace PDFBinder
             this.pagesIntent = pagesIntent;
         }
         public IEnumerator<int> GetEnumerator() {
-            return new PageNumberGenerator(this.pagesIntent);
+            return new PageNumberGenerator(this.pagesIntent, LastPage);
         }
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return new PageNumberGenerator(this.pagesIntent);
+            return new PageNumberGenerator(this.pagesIntent, LastPage);
+        }
+
+        private int lastPage = 0;
+        public int LastPage
+        {
+            get { return lastPage; }
+            set { lastPage = value; }
         }
     }
 
@@ -51,15 +58,22 @@ namespace PDFBinder
             public int begin;
             public int end;
         }
+        private int lastPage = 0;
+        public int LastPage
+        {
+            get { return lastPage; }
+            set { lastPage = value; }
+        }
+	
         public bool selectAll = true;
         public List<PageRange> ranges = new List<PageRange>();
         private List<PageRange>.Enumerator placeKeeper;
         private int lastPageGenerated = 0;
-        public PageNumberGenerator(String pagesIntent)
+        public PageNumberGenerator(String pagesIntent, int lastPage)
         {
             List<long> output = new List<long>();
             string[] regions = pagesIntent.Split(',');
-
+            LastPage = lastPage;
             foreach (string r in regions)
 	        {
                 if (r.Length == 0)
@@ -73,7 +87,11 @@ namespace PDFBinder
                 PageRange pr = new PageRange();
                 bool ok  = int.TryParse(endpointsStrings[0], out pr.begin);
                 if (endpointsStrings.Length == 2 ) {
-                    ok  &= int.TryParse(endpointsStrings[1], out pr.end);
+                    if (endpointsStrings[1] == "") {
+                        pr.end = 0;
+                    } else {
+                        ok  &= int.TryParse(endpointsStrings[1], out pr.end);
+                    }
                 }
                 if (!ok) {
                     throw new ArgumentException("Region couldn't be parsed " + r);
@@ -108,10 +126,27 @@ namespace PDFBinder
             if (selectAll)
             {
                 lastPageGenerated += 1;
-                return true;
+                return (lastPageGenerated <= LastPage);
             }
             int nextPage = lastPageGenerated + 1;
-            if (placeKeeper.Current == null || nextPage > placeKeeper.Current.end)
+            bool bMoveForwardToNextRange = false;
+            if (placeKeeper.Current == null) 
+            {
+                bMoveForwardToNextRange = true;
+
+            } 
+            else if (placeKeeper.Current.end == 0) // support open-ended selection "5-".
+            {
+                if (nextPage > LastPage)
+                {
+                     bMoveForwardToNextRange = true;
+                }
+            } else if (nextPage > placeKeeper.Current.end)
+            {
+                 bMoveForwardToNextRange = true;
+            }
+
+            if (bMoveForwardToNextRange)
             {
                 if (placeKeeper.MoveNext())
                 {
@@ -121,8 +156,8 @@ namespace PDFBinder
                 {
                     return false;
                 }
-
             }
+                            
             lastPageGenerated = nextPage;
             return true;
         }
@@ -194,26 +229,26 @@ namespace PDFBinder
 
         private void AddPages(PdfReader reader, PageNumberGeneratorGenerator png)
         {
+            png.LastPage = reader.NumberOfPages;
+
             try
             {
                 foreach (int p in png)
                 {
-                    if (p > reader.NumberOfPages)
-                    {
-                        return;
-                    }
                     AddPage(reader, p);
                 }
             } catch (Exception pdfe) {
                 System.Diagnostics.Debug.Write(pdfe);
+                throw new PdfException(pdfe.Message);
             }
         }
 
        
         public void Dispose()
-        {
+        {      
             _document.Close();
         }
+
 
         public static SourceTestResult TestSourceFile(string fileName, byte[] password)
         {

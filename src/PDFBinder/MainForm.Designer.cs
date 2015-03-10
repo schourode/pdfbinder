@@ -44,8 +44,8 @@ namespace PDFBinder
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.helpLabel = new System.Windows.Forms.Label();
             this.FileListPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelTitleFileName = new System.Windows.Forms.Label();
+            this.labelTitlePages = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -147,17 +147,19 @@ namespace PDFBinder
             // addFileDialog
             // 
             this.addFileDialog.DefaultExt = "pdf";
-            this.addFileDialog.Filter = "PDF documents|*.pdf";
+            this.addFileDialog.Filter = "All supported types|*.pdf;*.txt|PDF documents|*.pdf|Plain text list of PDFs|*.txt" +
+    "";
             this.addFileDialog.Multiselect = true;
+            this.addFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.addFileDialog_FileOk);
             // 
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(0, 196);
+            this.progressBar.Location = new System.Drawing.Point(0, 203);
             this.progressBar.MaximumSize = new System.Drawing.Size(0, 16);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(429, 16);
+            this.progressBar.Size = new System.Drawing.Size(0, 16);
             this.progressBar.TabIndex = 2;
             this.progressBar.Visible = false;
             // 
@@ -166,7 +168,7 @@ namespace PDFBinder
             this.helpLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.helpLabel.AutoSize = true;
-            this.helpLabel.Location = new System.Drawing.Point(4, 196);
+            this.helpLabel.Location = new System.Drawing.Point(4, 203);
             this.helpLabel.Name = "helpLabel";
             this.helpLabel.Size = new System.Drawing.Size(0, 13);
             this.helpLabel.TabIndex = 3;
@@ -181,41 +183,43 @@ namespace PDFBinder
             this.FileListPanel.Location = new System.Drawing.Point(0, 42);
             this.FileListPanel.MinimumSize = new System.Drawing.Size(423, 150);
             this.FileListPanel.Name = "FileListPanel";
-            this.FileListPanel.Size = new System.Drawing.Size(429, 151);
+            this.FileListPanel.Size = new System.Drawing.Size(429, 158);
             this.FileListPanel.TabIndex = 4;
             // 
-            // label1
+            // labelTitleFileName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "File name";
+            this.labelTitleFileName.AutoSize = true;
+            this.labelTitleFileName.Location = new System.Drawing.Point(15, 27);
+            this.labelTitleFileName.Name = "labelTitleFileName";
+            this.labelTitleFileName.Size = new System.Drawing.Size(52, 13);
+            this.labelTitleFileName.TabIndex = 5;
+            this.labelTitleFileName.Text = "File name";
+            this.labelTitleFileName.Visible = false;
             // 
-            // label2
+            // labelTitlePages
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(345, 27);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Pages";
+            this.labelTitlePages.AutoSize = true;
+            this.labelTitlePages.Location = new System.Drawing.Point(345, 27);
+            this.labelTitlePages.Name = "labelTitlePages";
+            this.labelTitlePages.Size = new System.Drawing.Size(37, 13);
+            this.labelTitlePages.TabIndex = 5;
+            this.labelTitlePages.Text = "Pages";
+            this.labelTitlePages.Visible = false;
             // 
             // MainForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(429, 215);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(429, 222);
+            this.Controls.Add(this.labelTitlePages);
+            this.Controls.Add(this.labelTitleFileName);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.FileListPanel);
             this.Controls.Add(this.helpLabel);
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(445, 240);
+            this.MinimumSize = new System.Drawing.Size(445, 260);
             this.Name = "MainForm";
             this.Text = "PDFBinder";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -245,8 +249,8 @@ namespace PDFBinder
         private System.Windows.Forms.Label helpLabel;
         private System.Windows.Forms.ToolStripButton RemoveAllButton;
         private System.Windows.Forms.FlowLayoutPanel FileListPanel;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelTitleFileName;
+        private System.Windows.Forms.Label labelTitlePages;
         private System.Windows.Forms.ToolTip toolTip1;
     }
 }

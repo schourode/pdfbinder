@@ -38,19 +38,20 @@
             // 
             this.FileNameLabel.AutoEllipsis = true;
             this.FileNameLabel.AutoSize = true;
-            this.FileNameLabel.Location = new System.Drawing.Point(3, 6);
-            this.FileNameLabel.MaximumSize = new System.Drawing.Size(315, 13);
+            this.FileNameLabel.Location = new System.Drawing.Point(19, 4);
+            this.FileNameLabel.MaximumSize = new System.Drawing.Size(300, 0);
             this.FileNameLabel.Name = "FileNameLabel";
-            this.FileNameLabel.Size = new System.Drawing.Size(35, 13);
+            this.FileNameLabel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
+            this.FileNameLabel.Size = new System.Drawing.Size(35, 18);
             this.FileNameLabel.TabIndex = 0;
             this.FileNameLabel.Text = "label1";
             this.FileNameLabel.Click += new System.EventHandler(this.PdfItem_Click);
             // 
             // PageSelection_textBox
             // 
-            this.PageSelection_textBox.Location = new System.Drawing.Point(320, 3);
+            this.PageSelection_textBox.Location = new System.Drawing.Point(320, 1);
             this.PageSelection_textBox.Name = "PageSelection_textBox";
-            this.PageSelection_textBox.Size = new System.Drawing.Size(75, 20);
+            this.PageSelection_textBox.Size = new System.Drawing.Size(76, 20);
             this.PageSelection_textBox.TabIndex = 1;
             this.PageSelection_textBox.TextChanged += new System.EventHandler(this.PageSelection_textBox_TextChanged);
             // 
@@ -65,12 +66,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.PageSelection_textBox);
             this.Controls.Add(this.FileNameLabel);
-            this.Margin = new System.Windows.Forms.Padding(1);
-            this.MinimumSize = new System.Drawing.Size(400, 26);
+            this.Margin = new System.Windows.Forms.Padding(0);
+            this.MaximumSize = new System.Drawing.Size(400, 60);
+            this.MinimumSize = new System.Drawing.Size(400, 20);
             this.Name = "PdfItem";
-            this.Size = new System.Drawing.Size(400, 26);
+            this.Size = new System.Drawing.Size(398, 24);
             this.Click += new System.EventHandler(this.PdfItem_Click);
             this.ResumeLayout(false);
             this.PerformLayout();

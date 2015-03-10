@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using iTextSharp.text.pdf;
 
 namespace PDFBinder
 {
@@ -57,28 +58,68 @@ namespace PDFBinder
 
         public void AddInputFile(string file)
         {
+            // to open a text file with a list of pdfs (or further text files, i guess) to be added
+            if (file.EndsWith(".txt"))
+            {
+                string[] pdf_files = System.IO.File.ReadAllLines(file);
+                foreach (string item in pdf_files)
+                {
+                    AddInputFile(item);
+                }
+                // txt file itself is not to be bound in to the output pdf.
+                return;
+            }
+
+            // support password in txt manifest files delimited by pipe character "|"
+            // support page selection in txt manifest files
+            string filename = null;
+            string password = null;
+            string pageSelections = "";
+            string[] item_info = file.Split('|');
+            if (item_info.Length > 0)
+            {
+                filename = item_info[0];
+                if (item_info.Length > 1)
+                {
+                    password = item_info[1];
+                }
+                pageSelections = "";
+                if (item_info.Length > 2)
+                {
+                    pageSelections = item_info[2];
+                }
+            }
+
+            if (! System.IO.File.Exists(filename))
+            {
+                MessageBox.Show(string.Format("File not found:\n\n{0}", filename), "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
             Boolean tryAgain = true;
             Boolean newPassword = false;
             while (tryAgain || newPassword) {
                 newPassword = false;
-                switch (Combiner.TestSourceFile(file, currentPassword))
+                switch (Combiner.TestSourceFile(filename, currentPassword))
                 {
                     case Combiner.SourceTestResult.Unreadable:
-                        MessageBox.Show(string.Format("File could not be opened as a PDF document:\n\n{0}", file), "Illegal file type", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(string.Format("File could not be opened as a PDF document:\n\n{0}", filename), "Illegal file type", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     case Combiner.SourceTestResult.Protected:
-                        MessageBox.Show(string.Format("PDF document does not allow copying:\n\n{0}", file), "Permission denied", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                        MessageBox.Show(string.Format("PDF document does not allow copying:\n\n{0}", filename), "Permission denied", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                         break;
                     case Combiner.SourceTestResult.Ok:
                         // inputListBox.Items.Add(file);
 
                         PdfItem pi = new PdfItem();
                         pi.BinderParentForm = this;
-                        pi.FileName = file;
-                        pi.PageDescriptor = "";
+                        pi.FileName = filename;
+                        pi.PageDescriptor = pageSelections;
                         pi.Selected = false;
                         FileListPanel.Controls.Add(pi);
-
+                        if (password != null) { 
+                            currentPassword = StrToByteArray(password); 
+                        }
                         passwords[file] = currentPassword;
                         break;
                     case Combiner.SourceTestResult.PasswordRequired:
@@ -105,18 +146,22 @@ namespace PDFBinder
 
         public void UpdateUI()
         {
-            if (FileListPanel.Controls.Count < 1)
+            bool isPopulated = (FileListPanel.Controls.Count > 0);
+
+            if (!isPopulated)
             {
-                completeButton.Enabled = false;
-                helpLabel.Text = "Drop PDF-documents in the box above, or choose \"add document\" from the toolbar";
-                RemoveAllButton.Enabled = false;
+                helpLabel.Text = "Drop PDF-documents in the box above, or choose \"Add file...\" from the toolbar";
             }
             else
             {
-                completeButton.Enabled = true;
                 helpLabel.Text = "Click the \"bind!\" button when you are done adding documents";
-                RemoveAllButton.Enabled = true;
             }
+
+            completeButton.Enabled = isPopulated;
+            RemoveAllButton.Enabled = isPopulated;
+            labelTitleFileName.Visible = isPopulated;
+            labelTitlePages.Visible = isPopulated;
+
 
             if (selectedItems.Count < 1)
             {
@@ -177,34 +222,74 @@ namespace PDFBinder
             UpdateUI();
         }
 
-        private void combineButton_Click(object sender, EventArgs e)
+        private void combineFiles(string saveFileName, out int countFilesBound, out string diagnostic)
         {
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            diagnostic = "";
+            using (var combiner = new Combiner(saveFileName))
             {
-                using (var combiner = new Combiner(saveFileDialog.FileName))
-                {
-                    progressBar.Visible = true;
-                    this.Enabled = false;
+                progressBar.Visible = true;
+                this.Enabled = false;
 
-                    int i = 0;
-                    foreach (PdfItem pi in FileListPanel.Controls)
+                int i = 0;
+                foreach (PdfItem pi in FileListPanel.Controls)
+                {
+                    try
                     {
-                        byte[] pw ;
+                        byte[] pw;
                         bool found_pw = passwords.TryGetValue(pi.FileName, out pw);
-                        if (found_pw) {
-                            combiner.AddFile(pi.FileName, pw,  pi.PageDescriptor );
-                        } else {
+                        if (found_pw && pw != null)
+                        {
+                            combiner.AddFile(pi.FileName, pw, pi.PageDescriptor);
+                        }
+                        else
+                        {
                             combiner.AddFile(pi.FileName, new byte[0], pi.PageDescriptor);
                         }
-                        i += 1;
-                        progressBar.Value = (int)(((i) / (double)FileListPanel.Controls.Count) * 100);
-                    }
 
-                    this.Enabled = true;
-                    progressBar.Visible = false;
+
+                    }
+                    catch (PdfException pdfe)
+                    {
+                        diagnostic += pi.FileName + ": " + pdfe.Message + "\n";
+                    }
+                    i += 1;
+                    progressBar.Value = (int)(((i) / (double)FileListPanel.Controls.Count) * 100);
+                }
+
+                countFilesBound = i;
+
+
+                return;
+            }
+
+        }
+
+        private void combineButton_Click(object sender, EventArgs e)
+        {
+            string diagnostic = null;
+            int successfullyBoundFilesCount = 0;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    combineFiles(saveFileDialog.FileName, out successfullyBoundFilesCount, out diagnostic);
+                }
+                catch (System.IO.IOException ioe) 
+                {
+                    // this happens if empty document is created
+                    MessageBox.Show("Error closing bound document. " + ioe.Message);             
+                }
+
+                this.Enabled = true;
+                progressBar.Visible = false;
+                if (diagnostic != "")
+                {
+                    MessageBox.Show("There were some problems binding the files:\n\n" + diagnostic);
                 }
 
                 System.Diagnostics.Process.Start(saveFileDialog.FileName);
+                
             }
         }
 
@@ -281,7 +366,7 @@ namespace PDFBinder
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            toolTip1.SetToolTip(label2, "Pages can be left blank for all, or a list of pages. e.g. \"8,16-22,45\"");
+            toolTip1.SetToolTip(labelTitlePages, "Pages can be left blank for all, or a list of pages. e.g. \"8,16-22,45\"");
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -291,6 +376,11 @@ namespace PDFBinder
                 return;
             }
             RemoveSelected();
+        }
+
+        private void addFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }
