@@ -1,5 +1,12 @@
 ﻿PDFBinder changelog
 ===================
+Version 1.3
+-----------
+  * Ability to accept password to open PDF. (Requires owner password)
+  * Select which pages of each file should appear in the output
+  * Files can be added by adding a txt file manifest.
+      - password and page number selections can be added to each line with the filename delimited by a "|"
+	  - eg. "D:\work\project1\file1.pdf|Passw0rd|2-8,13,1,1,25-"
 
 Version 1.2
 -----------
